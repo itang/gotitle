@@ -9,15 +9,16 @@ import (
 )
 
 func main() {
-	url := os.Args[1]
-	if url == "" {
-		fmt.Errorf("请指定url.")
+	if len(os.Args) < 2 {
+		fmt.Println("请指定url.")
 	}
 
-	fmt.Printf(">http get '%v'...\n", url)
+	for _, url := range os.Args[1:] {
+		fmt.Printf(">http get '%v'...\n", url)
 
-	title, err := gotitle.GetTitleFromUrl(url)
-	gotang.AssertNoError(err, "http请求出错!")
+		title, err := gotitle.GetTitleFromUrl(url)
+		gotang.AssertNoError(err, "http请求出错!")
 
-	fmt.Printf("\t->>title: %v\n", title)
+		fmt.Printf("\t->>title: %v\n", title)
+	}
 }
